@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <meta name="viewport" content="width=750, user-scalable=no">
+  <link rel="stylesheet" href="../public/css/reset-web.css">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="../public/js/zepto.js"></script>
+</head>
+<body>
+  <div class="main">
+    <img src="images/headbg.png">
+    <div class="middle">
+      <input type="tel" class="phone" id="phone" placeholder="请输入手机号">
+      <img src="images/free.png" class="free-receive
+">
+    <p class="participants-number">已有&nbsp<span>37832</span>&nbsp位用户领取了礼包</p>
+    <div class="participants-detal">
+      <div class="wrap">
+        <ul class="list-wrap">
+          <li class="clear">
+            <p class="fl">用户：182****6901</p>
+            <p class="fr">领取成功</p>
+          </li>
+          <li class="clear">
+            <p class="fl">用户：182****6902</p>
+            <p class="fr">领取成功</p>
+          </li>
+          <li class="clear">
+            <p class="fl">用户：182****6903</p>
+            <p class="fr">领取成功</p>
+          </li>
+          <li class="clear">
+            <p class="fl">用户：182****6904</p>
+            <p class="fr">领取成功</p>
+          </li>
+        </ul>
+      </div>  
+    </div>  
+    </div>
+    <img src="images/footerbg.png" class="footerbg">
+    <p class="footer-p">活动截止日期：2017年03月10日—2017年4月10日</p>
+  </div>
+  <div class="alert mask">
+    <div class="wrap">
+      <p class="p"></p>
+      <div class="btn"></div>
+    </div>
+  </div>
+</body>
+  <script>
+      $(function(){
+
+        var $phone = $('#phone'),
+            $receive = $('.free-receive'),
+            $listWrap = $('.list-wrap').eq(0),
+            $receiveNub = $('.participants-number span');
+        var u = window.navigator.userAgent.toLowerCase(),
+            iswx = u.indexOf('micromessenger'),
+            iswx = iswx != -1 ? true : false; 
+            isios = /iPhone|mac|iPod|iPad/i.test(u);
+        var regPhone = /^1(3|4|5|7|8)\d{9}$/,
+            isAjax = false;
+
+        function alert(html,btnHtml,callback){
+          $('.alert').show().find('.p').html(html);
+          $('.alert .btn').html(btnHtml);
+          if(callback){
+            $('.alert .btn').on('touchend',function(event){
+              event.preventDefault();
+              callback && callback()
+              $(this).off();
+            })
+          }
+        }
+
+
+        $phone.on('input',function(){
+          if(this.value.length > 11){
+            this.value = this.value.slice(0,11)
+          }
+        })
+
+        $receive.on('touchend',function(){
+          if(isAjax) return;
+          isAjax = true;
+          var phoneNub = $phone.val();
+          if(regPhone.test(phoneNub)){
+            $.ajax({
+              url:'http://api.test.icaikee.com/api/act/v1/activity/createMobile',
+              data:'&userId=7ff0ab52-21a4-4d62-a1e0-73117c8fa601&mobile='+phoneNub,
+              success:function(data){
+                if(data.data.check == true){
+                  alert('领取成功~','立即登录仙人掌');
+                }else if(data.data.check == false){
+                  alert('还没有注册快去注册~','立即注册仙人掌');
+                }
+                isAjax = false;
+              }
+            })
+          }else{
+            isAjax = false;
+            alert('请输入正确的手机号~','确定',function(){
+              $phone.val('');
+              $('.alert').hide();
+            });
+          }
+        })
+        !function move(){
+            if(!move.first){
+              move.first = true;
+              $listWrap.on('transitionEnd webkitTransitionEnd',function(){
+                $listWrap.css({
+                  'marginTop':0,
+                  'transition':'none',
+                  'webkitTransition':'none'
+                }).append($listWrap.children().eq(0))
+                move();
+              })
+            }
+            setTimeout(function(){
+              $listWrap.css({
+                'marginTop':-60,
+                'transition':'600ms linear',
+                'webkitTransition':'600ms linear'
+              });
+              $receiveNub.html($receiveNub.html()-1+2)
+            },parseInt((Math.random()*15 + 3)*100))
+        }()
+      })
+  </script>
+</html>
