@@ -7,76 +7,137 @@
 	<link rel="stylesheet" href="css/index.css">
 	<script src="../public/js/flexible.js"></script>
 	<script src="../public/js/zepto.js"></script>
+	<script src="../public/js/vue.min.js"></script>
 </head>
 <body style="background:#f5f5f5">
-	<div class="calendar-wrap">
+	<div class="calendar">
 		<div class="header clear">
 			<div class="time">
-				<i class="fl"></i>
-				<i class="fr"></i>
-				<span>2017年2月</span>
-				<div class="close"></div>
+				<i class="fl"><em class="left"></em></i>
+				<i class="fr"><em class="right"></em></i>
+				<span><span class="year">2017</span>年<span class="month">3</span>月</span>
+				<img class="close" src="images/calendarClose.jpg">
 			</div>
 		</div>
 		<div class="main">
 			<table>
-				<tr>
-					<td class="mask">日</td>
-					<td>一</td>
-					<td>二</td>
-					<td>三</td>
-					<td>四</td>
-					<td>五</td>
-					<td class="mask">六</td>
-				</tr>
-				<tr>
-					<td class="mask notClick">29</td>
-					<td class="notClick">30</td>
-					<td class="notClick">31</td>
-					<td>1</td>
-					<td>2</td>
-					<td>3</td>
-					<td>4</td>
-				</tr>
-				<tr>
-					<td class="mask">5</td>
-					<td>6</td>
-					<td>7</td>
-					<td>8</td>
-					<td>9</td>
-					<td>10</td>
-					<td>11</td>
-				</tr>
-				<tr>
-					<td class="mask">12</td>
-					<td>13</td>
-					<td>14</td>
-					<td>15</td>
-					<td class="choose"><div>16</div></td>
-					<td>17</td>
-					<td>18</td>
-				</tr>
-				<tr>
-					<td class="mask">19</td>
-					<td>20</td>
-					<td>21</td>
-					<td>22</td>
-					<td>23</td>
-					<td>24</td>
-					<td>25</td>
-				</tr>
-				<tr>
-					<td class="mask">26</td>
-					<td>27</td>
-					<td>28</td>
-					<td>1</td>
-					<td>2</td>
-					<td>3</td>
-					<td>4</td>
-				</tr>
+				<thead>
+					<tr>
+						<th class="mask">日</th>
+						<th>一</th>
+						<th>二</th>
+						<th>三</th>
+						<th>四</th>
+						<th>五</th>
+						<th class="mask">六</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>	
 			</table>
 		</div>
 		<div class="btn">确定</div>
 	</div>
 </body>
+<script>
+	function is_leap(year) {
+	 	return (year%100==0?res=(year%400==0?1:0):res=(year%4==0?1:0));
+	}
+
+	function gitMonthLen(year,month){
+		if(month < 0){
+			year--;
+			month += 12;
+		}else if(month > 11){
+			year++;
+			month -= 12;
+		}
+		var m_days = new Array(31,28+is_leap(year),31,30,31,31,30,31,30,31,30,31);
+		return m_days[month]
+	}
+
+	function firstDay(year,month,today){
+		return   new Date(year,month-1,1).getDay() ;
+	}
+	function isThisMonth(year,month){
+		var date = new Date();
+		if(date.getFullYear() == year && date.getMonth()+1 == month){
+			return date.getDate();
+		}else{
+			return false;
+		}
+	}
+	function createCalendar(year,month){
+		
+		var first =  firstDay(year,month),
+			today =  isThisMonth(year,month);
+		var aDays = [],
+			i,j,
+			len = first + gitMonthLen(year,month-1),
+			html="<tr>";
+		for(i = first; i < 42; i++ ){
+			if(i < len){
+				aDays[i] = i + 1 - first;
+			}else{
+				aDays[i] = i - len + 1;
+			}
+			
+		}
+		for(i = first - 1,j = gitMonthLen(year,month - 2); i >= 0; i--){
+			aDays[i] = j--;
+		}
+		aDays.forEach(function(val,index){
+			if(index < first || index >= len){
+				html += '<td class="notClick"><div>'+ val +'</div></td>'
+			}else{
+				if(val == today){
+					html += '<td class="today"><div>'+ val +'</div></td>'
+				}else{
+					html += '<td><div>'+ val +'</div></td>'
+				}
+			}
+			if((index + 1) % 7 == 0 && index != 0 && index != 41){
+				html += '</tr><tr>'
+			}
+			if(index == 41){
+				html += '</tr>'
+			}
+		})
+			$('.main tbody')[0].innerHTML = html
+	}
+
+	!function init(){
+		var date = new Date();
+		$('.calendar .year').html(date.getFullYear());
+		$('.calendar .month').html(date.getMonth() + 1);
+		
+		$('.btn').on('touchend',function(){
+
+		})
+
+		createCalendar(2017,3);
+
+	}()
+	
+	$('.calendar .time i').on('touchend',function(){
+		var year = $('.calendar .year').html(),
+			month = $('.calendar .month').html();
+		if($(this).index() == 0){
+			if(--month < 1){
+				$('.calendar .year').html(--year);
+				$('.calendar .month').html(12)
+			}else{
+				$('.calendar .month').html(month)
+			}
+		}else{
+			if(++month > 12){
+				$('.calendar .year').html(++year);
+				$('.calendar .month').html(1)
+			}else{
+				$('.calendar .month').html(month)
+			}
+		}
+		createCalendar(year,month)
+	})
+</script>
 </html>

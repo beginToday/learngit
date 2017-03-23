@@ -1,3 +1,6 @@
+h1,h2,h3,h4,h5.h6{
+	font-weight:normal;
+}
 .bd2{
 	border-width:0.026667rem;
 	border-style:solid;
@@ -95,6 +98,7 @@
 	border-left-width:0;
 	border-right-width:0;
 	border-bottom-width:0;
+	background-color:#fff;
 	position:absolute; 
 	left:0;
 	bottom:0;
@@ -250,27 +254,154 @@
 	bottom:0;
 }
 
+/* theme */
+.theme-serach{
+	padding:0.213333rem 0;
+	background-color:#fff
+}
+.theme-serach p{
+	width:1.52rem;
+	padding-left:0.48rem;
+	margin:0 auto;
+	font-size:0.373333rem
+}
+.theme-wrap{
+	color:#333;
+}
+.theme-nav{
+	margin-top:0.266667rem;
+	background-color:#fff
+}
+.theme-nav h2{
+	width:1.653333rem;
+	padding:0.426667rem 0 0.32rem 0.4rem;
+	margin:0 auto;
+	font-size:0.4rem;
+}
+.theme-list-wrap{
+	height:2.16rem;
+	padding:0 0 0.453333rem	0.053333rem;
+	border-top-width:0;
+	border-left-width:0;
+	border-right-width:0;
+	border-color:#efefef;
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	overflow:hidden;
+	position:relative;
+}
+.theme-list {
+	width:120%;
+	position:absolute;
+	left:0;
+	top:0;
+}
+.theme-list li{
+	width:2.666667rem;
+	height:1.733333rem;
+	margin-left:0.266667rem;
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	border-color:#B1B1B1;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	text-align:center;
+}
+.theme-list p{
+	width:1.893333rem;
+	font-size:0.32rem;
+	margin:0.426667rem auto 0.16rem;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+.theme-list span{
+	font-size:0.373333rem
+}
+.theme-main .up{
+	color:#F53C3E;
+}
+.theme-main .down{
+	color:#70C27E;
+}
+.theme-nav2{
+	width:9.36rem;
+	height:0.773333rem;
+	border-color:#ff484a;
+	margin:0.266667rem auto;
+	border-radius:0.08rem;
+	-webkit-border-radius:0.08rem;
+	background-color:#fff
+}
+.theme-nav2 li{
+	width:33.33%;
+	font-size:0.32rem;
+	line-height:0.773333rem;
+	text-align:center;
+	float:left;
+}
+.theme-nav2 li.act{
+	background-color:#ff484a;
+	color:#fff;
+}
+
+.theme-content{
+	border-width:0 0 0.04rem 0;
+	border-color:#efefef;
+	overflow:hidden;
+	background-color:#fff
+}
+.theme-content ul{
+	border-top-width:0;
+	border-left-width:0;
+	border-right-width:0;
+	border-color:#efefef;
+}
+.theme-content li{
+	width:33.33%;
+	height:1.466667rem;
+	float:left;
+	text-align:center;
+}
+.theme-content li p{
+	margin:0.293333rem 0 0.16rem;
+	font-size:0.373333rem
+}
+.theme-content li span{
+	font-size:0.373333rem;
+	display:inline-block;
+	position:relative;
+}
+.theme-content .hot:after{
+	content:"";
+	width:0.266667rem;
+	height:0.333333rem;
+	position:absolute;
+	top:0;
+	right:-0.4rem;
+	background-color:red
+}
 /* calendar */
-.calendar-wrap{
+.calendar{
 	width:9.333333rem;
-	height:6.8rem;
 	padding-bottom:0.08rem;
 	border-radius:0.266667rem;
 	-webkit-border-radius:0.266667rem;
+	background-color:#fff;
 	position:fixed;
 	left:50%;
 	top:20%;
 	margin-left:-4.6666665rem;
 }
-.calendar-wrap .header{
+.calendar .header{
 	height:1.066667rem;
-	background-color:#ff4344;
+	background-color:#fd1b3d;
 	border-radius:0.266667rem 0.266667rem 0 0;
 	-webkit-border-radius:0.266667rem 0.266667rem 0 0;
 	overflow:hidden;
 	position:relative;
 }
-.calendar-wrap .time{
+.calendar .time{
 	width:4.4rem;
 	height:0.4rem;
 	margin:0.333333rem auto 0;
@@ -279,12 +410,23 @@
 	text-align:center;
 	color:#fff;
 }
-.calendar-wrap .time i{
+.calendar .time i{
 	width:0.213333rem;
 	height:0.4rem;
-	background-color:blue
+	padding:0.266667rem;
+	margin:-0.266667rem;
 } 
-.calendar-wrap .time .close{
+.calendar .time em{
+	width:0.213333rem;
+	height:0.4rem;
+	background:url(../images/calendarLeft.jpg) no-repeat 0 0;
+	background-size:0.4rem 0.4rem;
+	display:block;
+}
+.calendar .time .right{
+	background-position:right 0
+}
+.calendar .time .close{
 	width:0.4rem;
 	height:0.4rem;
 	padding:0.333333rem 0.266667rem;
@@ -292,25 +434,38 @@
 	top:0;
 	right:0;
 }
-.calendar-wrap .main{
+.calendar .main{
 	font-size:0.4rem;
 	line-height:0.72rem;
 	text-align:center;
 }
-.calendar-wrap tr{
+.calendar tr{
 	height:0.933333rem;
 }
-.calendar-wrap td{
+.calendar td,.calendar th{
 	width:1.333333rem;
 	color:#000;
+	font-weight:normal;
 }
-.calendar-wrap .mask{
+.calendar td:nth-child(1),.calendar th:nth-child(1){
 	color:#dc1f13;
 }
-.calendar-wrap .notClick{
+.calendar .notClick{
 	opacity:0.5
 }
-.calendar-wrap .choose div{
+.calendar .today div{
+	width:0.72rem;
+	height:0.586667rem;
+	line-height:0.586667rem;
+	border:3px solid #d3d3d3;
+	border-radius:0.106667rem;
+	-webkit-border-radius:0.106667rem;
+	margin:0 auto;
+}
+[data-dpr="1"] .calendar .today div{
+	border:2px solid #d3d3d3;
+}
+.calendar .choose div{
 	width:0.72rem;
 	height:0.72rem;
 	margin:0 auto;
@@ -319,7 +474,7 @@
 	background-color:#ff484a;
 	color:#fff;
 }
-.calendar-wrap .btn{
+.calendar .btn{
 	width:3.466667rem;
 	height:1.066667rem;
 	background-image: linear-gradient(-180deg, #FF5146 0%, #FD173C 100%);
@@ -329,10 +484,96 @@
 	font-size: 36px;
 	line-height:1.066667rem;
 	color: #FFFFFF;
+	text-align:center;
 	position:absolute;
 	left:50%;
 	bottom:-1.6rem;
 	margin-left:-1.7333335rem
 
 }
+
+/* search */
+.search-wrap{
+
+}
+.search-head-wrap{
+	padding:0.213333rem 0 0 0.213333rem;
+}
+.search-head{
+	width:8.133333rem;
+	height:0.746667rem;
+	font-size:0.373333rem;
+	overflow:hidden;
+	border-radius:0.133333rem;
+	-webkit-border-radius:0.133333rem;
+	background-color:#fff
+}
+.search-head i{
+	width:0.373333rem;
+	height:0.373333rem;
+	margin:0.186667rem 0.266667rem;
+	background-color:red
+}
+.search-head input{
+	height:0.426667rem;
+	padding:0.16rem 0.053333rem;
+	font-size:0.32rem;
+	color:#777;
+}
+.search-wrap .cancel{
+	width:1.653333rem;
+	height:0.746667rem;
+	font-size:0.373333rem;
+	line-height:0.746667rem;
+	color:#F53C3E;
+	text-align:center;
+}
+.search-wrap .list-wrap{
+	padding:0.413333rem 0.4rem 0.413333rem 0.48rem;
+	margin-top:0.213333rem;
+	font-size:0.32rem;
+	background-color:#fff
+}
+.search-wrap .list-head{
+	height:0.346667rem;
+	margin-bottom:0.226667rem;
+}
+.search-wrap .list-head .icon{
+	width:0.346667rem;
+	height:0.346667rem;
+	margin-right:0.213333rem
+}
+.search-wrap .list-head h2,.search-wrap .all-clear{
+	color:#a4a4a4;
+	line-height:0.346667rem;
+}
+.search-wrap .all-clear i{
+	width:0.333333rem;
+	height:0.346667rem;
+	margin-right:0.133333rem
+}
+.lists-content{
+
+}
+.lists-content li{
+	height:0.8rem;
+	padding:0 0.4rem;
+	margin:0.266667rem 0.133333rem 0 0;
+	line-height:0.8rem;
+	text-align:center;
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	border-color:#dcdcdc;
+	border-radius:0.053333rem;
+	-webkit-border-radius:0.053333rem;
+	float:left;
+}
+.hot-theme{
+	margin-top:0.266667rem
+}
+
+
+
+
+
 
